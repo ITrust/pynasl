@@ -19,7 +19,7 @@ pynasl_ = Extension(
     **pkg_config(
         'glib-2.0',
         libraries=['openvas_hg', 'openvas_misc', 'openvas_nasl', 'openvas_base'],
-        sources=['pynasl_.c', 'kbs.c', 'nvti.c', 'utils.c', 'config.c', 'socket.c', 'report.c'],
+        sources=['src/pynasl_.c', 'src/kbs.c', 'src/nvti.c', 'src/utils.c', 'src/config.c', 'src/socket.c', 'src/report.c'],
         include_dirs=[
             './openvas-libraries-6.0.1/hg/',
             './openvas-libraries-6.0.1/nasl',
