@@ -1,0 +1,10 @@
+La documentation est dans le dossier doc.
+La documentation de pynasl est découpé en plusieurs morceaux:
+							 pynasl_.txt contient la doc du module C,
+							 pynaslmod.txt contient la doc du module python,
+							 pynasl.txt contient la doc du programme pynasl.py,
+							 pynasl_module.txt est un guide rapide d'utilisation des modules pynasl_ et pynaslmod,
+							 get_pref.py contient la doc du programme get_pref.py,
+							 config.txt contient la doc du fichier de configuration.
+
+Dans ameliorations.txt il y a des idées d'améliorations et des pistes pour les réaliser.

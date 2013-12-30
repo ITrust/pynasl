@@ -1,0 +1,47 @@
+Pynasl_ est le module C de pynasl. Pynasl_ interface la librairie libopenvas_nasl qui permet d'éxécuter des plugins openvas avec la partie python de pynasl (pynaslmod).
+Pour l'utiliser importez simplement pynasl_ (si vous importez pynaslmod les fonctions de pynasl_ sont accessibles sans importer pynasl_)
+
+
+launch_script(script_path, target, kb_out) :
+	  launch_script permet d'éxécuter un plugin.
+	  script_path est une string qui indique le chemin vers le plugin à éxécuter.
+	  target est une string contenant l'ip de la target (l'hostname devrait marcher aussi, on a pas pu tester).
+	  kb_out est optionel, c'est une string indiquant le chemin du fichier de sortie des kb (c'est à dire le fichier où vont être écrit les kb après éxécutions du plugins)
+	  Il est déconseillé d'utiliser directement launch_script, le module python gère les dépendances des plugins (voir pynaslmod.exec_script), si vous utilisez directement launch_script les dépendances des plugins risque de ne pas être satisfaites et le plugin ne s'éxécutera pas.
+	  launch_script renvoi une liste de dictionnaires (un dictionnaire par vulnérabilité trouvée). Les dictionnaires contiennent 2 informations : le port sur lequel se trouve la vulnérabilité et le message envoyé par le plugin (le nom du plugin est rajouté côté python).
+
+create_nvti(script_path, nvti_path):
+	 create_nvti créé le nvti d'un plugin.
+	 script_path est une string indiquant le chemin du plugin
+	 nvti_path es une string indiquant le chemin où vas être écrit le nvti.
+	 Il est déconseillé d'utiliser directement create_nvti, le module python gère la mise à jours des nvti (voir pynaslmod.nvti), si vous utilisez directement create_nvti vous allez regénérer le nvti à chaque fois même lorsque ce sera inutile.
+	 create_nvti retourne True si tout c'est bien passé et False si il y a eu un problème.
+
+info_from_nvti(nvti_path):
+	info_from_nvti récupère les infos utile du fichier nvti.
+	nvti_path est une string indiquant le chemin vers le nvti dont on veut les informations.
+	info_from_nvti renvoi un dictionnaire contenant l'oid du plugin et la liste des dépendances (toutes les dépendances sont à la suite des autres, la liste est créée côté python).
+
+init_kb(kb_file):
+	init_kb initialise le stockage des kbs pour pouvoir les écrire dans un fichier.
+	kb_file est optionel, c'est un string indiquant le chemin d'un fichier de kb à charger.
+	kb_file renvois True si tout c'est bien passé et False si il y a eu un problème.
+
+init_socket():
+	init_socket initialise les sockets internes (socketpair) qui permettent au plugin de communiquer des informations (kb, rapport de vulnérabilité ..).
+	init_socket renvoie toujours True (si il y a eu problème à l'initialisation des sockets le programme se ferme)
+
+was_launched(oid):
+	was_launched indique si un plugin a déjà été éxécuté ou pas.
+	oid est une string contenant la clef de kb qui indique l'éxécution du plugin (Launched/ + oid du plugin).
+	was_launched renvoie False si le plugin n'a pas été éxécuté et True s'il l'a été.
+
+init_nvticache():
+	init_nvticache initialise le cache des nvti interne de la libopenvas_nasl.
+	init_nvticache renvoie toujours True.
+
+init_conf_(conf_file):
+	init_conf charge la configuration de pynasl.
+	conf_file est une string indiquant le chemin vers le fichier de configuration.
+
+	

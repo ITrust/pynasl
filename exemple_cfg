@@ -1,0 +1,7 @@
+Nmap (NASL wrapper)[checkbox]:Identify the remote OS=yes
+SSL Cipher Settings[checkbox]:List SSL Supported Ciphers=yes
+cache_folder=/home/user/pynasl/cache
+plugins_folder=/home/user/pynasl/plugins
+include_folders=/home/user/pynasl/plugins
+checks_read_timeout=20
+logfile=/home/user/pynasl/pynasl.log

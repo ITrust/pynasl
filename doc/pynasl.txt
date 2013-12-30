@@ -1,0 +1,49 @@
+pyansl.py est le programme pynasl lui-même, il utilise les modules pynasl_ pour utiliser la librairie libopenvas_nasl afin d'éxécuter les plugins et le module pynaslmod pour simplifier son utilisation.
+Pynasl.py a besoin des droits root pour pouvoir s'éxécuter.
+
+usage: pynasl.py [-h] [-k KB] [-i KB_IN] [-o KB_OUT] [-c CONF_FILE] [-v]
+                 [-p PLUGINS] [-f FILE] [-t TARGET]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -k KB, --kb KB        Specify a kb file to load and write
+  -i KB_IN, --kb_in KB_IN
+                        Specify a kb file to load
+  -o KB_OUT, --kb_out KB_OUT
+                        Specify a kb file to write
+  -c CONF_FILE, --conf_file CONF_FILE
+                        Specify a config file
+  -v, --verbose         Set level of verbosity (-v : print load, end of
+                        plugin, -vv : print more information)
+  -p PLUGINS, --plugins PLUGINS
+                        Plugins to exec (use ',' as separtor for multiple
+                        plugins)
+  -f FILE, --file FILE  file who contain plugins list (one per line or use ','
+                        as separator
+  -t TARGET, --target TARGET
+                        Target of the scan
+
+exemples d'utilisation :
+
+Exécuter les plugins nmap.nas et plugins_1.nasl sur le localhost (127.0.0.1) avec un niveau de log maximal et un fichier de conf s'appelant cfg.
+
+./pynasl.py -t 127.0.0.1 -vv -p 'nmap.nasl, plugins_1.nasl' -c cfg
+
+
+Même exemple avec les plugins dans un fichier appelé plugins.txt (les séparateurs sont des virgules et des sauts de ligne):
+
+./pynasl.py -t 127.0.0.1 -vv -f plugins.txt -c cfg 
+
+contenu de plugins.txt soit :
+	nmap.nasl, plugins_1.nasl
+			soit:
+	nmap.nasl
+	plugins_1.nasl
+
+Exécuter le plugin nmap.nasl sur le localhost en utilisant un fichier de kb 'kb.kb' pour l'entrée et la sortie (ce fichier sera chargé au début puis complété après l'éxécution du plugin) et un niveau de log faible:
+
+./pynasl.py -t 127.0.0.1 -c cfg -p nmap.nasl -k kb.kb -v
+
+Exécuter le plugin nmap.nasl sur le localhost en utilisant le fichier in.kb pour charger les kbs et le fichier out.kb pour la sortie des kb :
+
+./pynasl -t 127.0.0.1 -c cfg -p nmap.nasl -i in.kb -o out.kb

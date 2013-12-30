@@ -1,0 +1,14 @@
+Ce document explique rapidement comment utiliser les modules pynasl_ et pynaslmod.
+
+Importez uniquement pynaslmod (les fonctions de pynasl_ seront accessible par pynaslmod).
+
+commencez par appeler pynaslmod.init (avec en option un fichier de kb à charger):
+	  pynaslmod.init(conf) ou pynaslmod.init(conf, kb_src=kb_file)
+conf est le chemin vers le fichier de conf.
+
+Ensuite initialisez les log si vous voulez les activer:
+	pynaslmod.init_log(verbose)
+verbose indique le niveau de verbosité des log.
+
+et pour finir appeler pynaslmod.exec_script (avec en option un fichier de kb pour écrire les kbs à la fin de l'éxécution du plugin):
+   	pynaslmod.exec_script(plugins, target) ou  pynaslmod.exec_script(plugins, target, kb_file = kb_files)

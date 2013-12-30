@@ -1,0 +1,27 @@
+Le fichier de configuration d'openvas contient un paramètre par ligne. Un paramètre se présente sous la forme 'clef=valeur' (exemple : cache_folder=/home/user/pynasl/plugins)
+Le fichier de configuration peut contenir 2 types de paramètre : les paramètres d'openvas et les paramètres des plugins.
+Un paramètre non indiqué dans le fichier de configuration prendra sa valeur par defaut.
+
+Un exemple basic est disponible (exemple_cfg)
+
+Les paramètres de pynasl sont listés ci-dessous (ce sont les mêmes qu'openvas):
+
+plugins_folder : dossier où sont les plugins. défaut : /var/lib/openvas/plugins.
+cache_folder : dossier où sont les nvti et les .md5 des plugins. défaut : /var/lib//cache/openvas.
+include_folders : dossier où sont les .inc (sorte de librairies nasl, généralement identique à plugins_folder). défaut : /var/lib/openvas/plugins.
+logfile : chemin du fichier de stockage des log de pynasl (si la verbose de niveau 1 ou  2 est activé). Pas de valeur par défaut (ce paramètre doit être indiqué pour pouvoir activer la verbose).
+cgi_path : un paramètre utilisé par certains plugins. défaut : /cgi-bin:/scripts.
+port_range :  un paramètre utilisé par certains plugins. défaut : default.
+checks_read_timeout : time out de la lecture des sockets par les plugins. défaut : 5.
+network_scan : un paramètre utilisé par certains plugins. défaut : no.
+non_simult_ports : un paramètre utilisé par certains plugins. défaut : 139, 445.
+plugins_timeout : time out d'éxécution des plugins. défaut  : 320.
+safe_checks : un paramètre utilisé par certains plugins. défaut : yes
+use_mac_addr : un paramètre utilisé par certains plugins. défaut : no
+kb_max_age : même rôle que dans openvas. défaut : 864000.
+unscanned_closed :  un paramètre utilisé par certains plugins. défaut : yes.
+vhosts : même rôle que dans openvas. pas de défaut.
+vhosts_ip même rôle que dans openvas. pas de défaut.
+reverse_lookup même rôle que dans openvas. pas de défaut.
+
+Les paramétres des plugins sont appelés préférences. Pour les récupérer, utilisez l'outil get_pref.py (voir get_pref.txt).

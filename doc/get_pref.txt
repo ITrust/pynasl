@@ -1,0 +1,65 @@
+get_pref.py est un outil qui permet de récupérer facilement les préférences d'un ou plusieurs plugins.
+Une préférence est présentée sur 1 ou 2 ligne : la 1ère contient le nom de la préférence, la 2ème contient les valeurs possibles ou la valeur par défault (suivant le type de la préférence).
+
+Son premier paramètre est le chemin vers le fichier de conf de pynasl, les autres paramètres sont les plugins.
+
+Usage : ./get_pref.py file_conf plugin1 plugin2 ...
+
+exemple : ./get_pref.py cfg nmap.nasl plugins_2.nasl
+
+
+nmap.nasl:
+Nmap (NASL wrapper)[radio]:TCP scanning technique :
+Possible value : connect(), SYN scan, FIN scan, Xmas Tree scan, SYN FIN scan, FIN SYN scan, Null scan, No TCP sca.
+
+Nmap (NASL wrapper)[checkbox]:Service scan
+Default value is no
+
+Nmap (NASL wrapper)[checkbox]:RPC port scan
+Default value is no
+
+Nmap (NASL wrapper)[checkbox]:Identify the remote OS
+Default value is no
+
+Nmap (NASL wrapper)[checkbox]:Use hidden option to identify the remote OS
+Default value is no
+
+Nmap (NASL wrapper)[checkbox]:Fragment IP packets (bypasses firewalls)
+Default value is no
+
+Nmap (NASL wrapper)[checkbox]:Get Identd info
+Default value is no
+
+Nmap (NASL wrapper)[checkbox]:Do not randomize the  order  in  which ports are scanned
+Default value is no
+
+Nmap (NASL wrapper)[entry]:Source port :
+
+Nmap (NASL wrapper)[radio]:Timing policy :
+Possible value : Normal, Insane, Aggressive, Polite, Sneaky, Paranoid, Custo.
+
+Nmap (NASL wrapper)[entry]:Host Timeout (ms) :
+
+Nmap (NASL wrapper)[entry]:Min RTT Timeout (ms) :
+
+Nmap (NASL wrapper)[entry]:Max RTT Timeout (ms) :
+
+Nmap (NASL wrapper)[entry]:Initial RTT timeout (ms) :
+
+Nmap (NASL wrapper)[entry]:Ports scanned in parallel (max)
+
+Nmap (NASL wrapper)[entry]:Ports scanned in parallel (min)
+
+Nmap (NASL wrapper)[entry]:Minimum wait between probes (ms)
+
+Nmap (NASL wrapper)[file]:File containing grepable results : 
+
+Nmap (NASL wrapper)[checkbox]:Do not scan targets not in the file
+Default value is no
+
+Nmap (NASL wrapper)[checkbox]:Run dangerous port scans even if safe checks are set
+Default value is no
+
+plugins_2.nasl:
+plugins_2.nasl has no preference
+

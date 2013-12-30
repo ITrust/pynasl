@@ -1,0 +1,4 @@
+run following commands
+
+tar xvf openvas-libraries-6.0.1.tar.gz
+sudo ./setup install

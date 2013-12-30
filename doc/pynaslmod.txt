@@ -1,0 +1,51 @@
+Pynaslmod est le module python de pynasl. Il utilise pynasl_ pour avoir accès à la librairie libopenvas_nasl.
+Pour l'utiliser importez pynaslmod (les fonctions de pynasl_ sont accessibles depuis pynaslmod)
+
+init_conf(path):
+	init_conf charge la configuration d'openvas (voir config.txt pour créer ou modifier la configuration)
+	path est une string indiquant le chemin vers le fichier de configuration.
+	init_conf retourne la configuration (sous forme d'un dictionnaire), la configuration est aussi stocké dans la gobal global_conf pour faciliter son accès aux autres parties de pynaslmod.
+
+exception : CircularDepError:
+	L'exception CircularDepError est levé lorsqu'une boucle de dépendance est détectée (un plugin qui par ses dépendances dépend de lui-même).
+	Cette exception ne peut-être levée que par la fonction exec_script.
+
+exec_script(plugins, target, **kwargs):
+	exec_script éxécute une liste de plugins nasl, il résout aussi les dépendances des plugins à éxécuter.
+	plugins est soit une string contenant 1 nom de plugins, soit une liste contenant 1 ou plusieurs nom de plugins.
+	target est une string contenant l'ip de la target (le hostname marche peut-être il faut tester).
+	les kwargs de cette fonction sont :
+	    	      	    	     	   kb_file : le chemin vers le fichier de sortie des kb.
+					   nvti_info : les infos récupérées par get_nvti_info (à ne pas utiliser si plus d'un plugin est passé à exec_script)
+	exec_script retourne une liste de dictionnaires contenant les informations retournées par launch_script (pour chaque vulnérabilité détectée il y a le port et les informations renvoyées par le plugin), exec_script y rajoute le nom du plugin avant de le retourner.
+
+
+init(cfg, **kwargs):
+ 	init initialise pynasl_ et la librairie libopenvas_nasl en appelant les différentes fonctions d'initalisation des 2 modules (pynasl_ et pynaslmod) excepté init_log.
+	La liste des fonctions appelées est init_conf, init_kb, init_socket et init_nvticache.
+	cfg est le chemin vers le fichier de configuration de pynasl (utilisé par init_conf).
+	Le kwarg de cette fonction est kb_src, c'est le chemin vers le fichier de kb à charger (utilisé par init_kb)
+	global_init ne retourne rien.
+
+init_log(level):
+	init_log initialise les log de pynasl.
+	Le fichier de log est défini dans la configuration de pynasl (si il n'est pas précisé, rien ne seras logger).
+	level est le niveau de log (0 : pas de log, 1 : log le début et la fin de l'éxécution des plugins, 2 : quelques informations supplémentaires).
+	init_log ne retourne rien.
+
+log_info(msg):
+	log_info log le message msg.
+	msg est le message à logger.
+
+class nvti :
+      La classe nvti gère la génération et la récupération des informations des nvti.
+      Un nvti est fichier contenant des informations sur un plugin (oid, dépendance, port requis, ...).
+      Les nvti sont générés lorsque qu'il n'existe pas ou que le plugin a été modifié (les modifcations sont détectées à l'aide d'un hash md5)
+      Ces différentes méthodes sont :
+      	  	      	       	        __init__(plugin_name): Le constructeur de la classe nvti à besoin du nom du plugin dont on veut le nvti.
+					create_md5(plugin_data, md5_path, md5_sum=None) : create_md5 crée le fichier .md5 contenant le md5 du plugin.
+									  		plugin_data le contenu du fichier du plugin (une string)
+											md5_path est le chemin vers le fichier où le md5 va être écrit.
+											md5_sum est le hash md5 de plugin_data (à n'envoyer que si déjà calculé)
+					check(): check vérifie si le plugin a changé et, si c'est le cas, génère le nouveau nvti et le nouveau fichier md5.
+					get_nvti_info() : get_nvti_info retourne les informations que retourne info_from_nvti(la liste des dépendance et l'oid) en transformant la chaine contenant la liste des dépendances en liste python et en rajoutant le nom du plugin associé au nvti.

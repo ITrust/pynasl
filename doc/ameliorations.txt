@@ -1,0 +1,17 @@
+Plusieurs améliorations reste à faire pour rendre pynasl optimal, voici quelques idées et pistes pour les réaliser.
+
+Actuellement pynasl affiche le retours des plugins sur la sortie standard, permettre une sortie en xml (qui utiliserait le retour de exec_script) serait bien.
+Il est aussi possible de rajouter des informations, par exemple exec_script pourrait, en plus de rajouter le nom du plugin dans le dictionnaire, ajouter d'autres informations contenues dans le nvti (il faudra pour cela modifier le get_nvti_info du module pynasl_ pour qu'il retourne plus d'information contenue dans les nvti).
+Si le multitarget est implémenté, rajouter la target dans le retour de pynasl est indispensable.
+
+
+Niveau optimisation, il y a le multi-threading des plugins. Par exemple lors de la résolution des dépendances on pourrait lancer l'éxécution des dépendances en multithread.
+Il faudrait aussi que différentes instances de pynasl est accés aux mêmes kbs (la global kbs dans pynasl_.c), ça éviterait d'avoir des plugins éxécutés en double sur plusieurs instances. Il faudrait que la première instance charge les kb si besoin puis met la global kbs à disposition des autres instances qui se lancerait (sémaphores ?), la dernière instance à s'éxécuter écrirait les kb en sortie afin d'éviter les conflits d'écriture dans le fichier de kb.
+Dans m_launch_script (fichier pynasl_.c), il y a une boucle while qui pourrait peut-être servir à implémenter le multitarget (il faut faire des test, je ne suis pas sur).
+				
+
+Une autre optimisation plus lourde serait de construire l'arbre de dépendance de tous les plugins, de le stocker (avec pickle ou shelve par exemple) et de l'utiliser pour améliorer le multhreading (un thread par branch qui arrive au plugin à éxécuter par exemple).
+
+
+Bug:
+    Il y a un petit problème avec les kb, ils sont réécrits entièrement après chaque plugin pour pouvoir suivre l'évolution de l'éxécution des plugins et le timestamp écrit est celui au moment de l'écriture. Tout les kb ont donc le même timestamp, il faudrait trouver un moyen de sauvegarder le timestamp de création du kb (sans modifier la structure kb_item car les librairies openvas ne doivent pas être modifiées).
