@@ -22,9 +22,16 @@ pynasl_ = Extension(
         sources=['src/pynasl_.c', 'src/kbs.c', 'src/nvti.c', 'src/utils.c', 'src/config.c', 'src/socket.c', 'src/report.c'],
         include_dirs=[
             './openvas-libraries-6.0.1/hg/',
-            './openvas-libraries-6.0.1/nasl',
-            './openvas-libraries-6.0.1/misc',
-            './openvas-libraries-6.0.1/base',
+            './openvas-libraries-6.0.1/nasl/',
+            './openvas-libraries-6.0.1/misc/',
+            './openvas-libraries-6.0.1/base/',
+            './scanner_include/'
+            ],
+        library_dirs=[
+            './openvas-libraries-6.0.1/hg/',
+            './openvas-libraries-6.0.1/nasl/',
+            './openvas-libraries-6.0.1/misc/',
+            './openvas-libraries-6.0.1/base/',
             './scanner_include/'
             ],
         define_macros=[('OPENVAS_USERS_DIR', '\"/usr/local/var/lib/openvas/users\"')],

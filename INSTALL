@@ -1,4 +1,7 @@
 run following commands
 
 tar xvf openvas-libraries-6.0.1.tar.gz
+cd openvas-libraries-6.0.1
+cmake ..
+make
 sudo ./setup install
